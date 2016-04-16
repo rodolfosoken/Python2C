@@ -9,4 +9,5 @@ public class Tipo {
 	FALSE = 259,
 	IF = 260, 
 	WHILE = 261; //todo o resto da tabela vai aqui.
+	//teste git
 }
