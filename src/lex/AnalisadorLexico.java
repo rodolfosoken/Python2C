@@ -6,6 +6,6 @@ public class AnalisadorLexico {
 	public int linha = 1;
 	private char simbolo = ' ';
 	private Hashtable tabelaSimbolos = new Hashtable<>();
-	//ainda vou terminar, quando voltar estarei modificando aqui...
+	
 
 }
