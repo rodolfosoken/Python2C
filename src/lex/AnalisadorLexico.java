@@ -36,8 +36,8 @@ public class AnalisadorLexico {
 	private void leLinha() { // le uma linha do código fonte
 		try {
 			indexChar = 0; // faz o ponteiro voltar ao inicio da linha
-			contLinha++;
-			linha = br.readLine();
+			contLinha++; // se ocorrer um erro o contador poderá indicar qual a linha que tentou ler.
+			linha = br.readLine(); // le uma nova linha do arquivo fonte
 		} catch (IOException e) {
 			System.out.println("erro ao ler aquivo fonte");
 			e.printStackTrace();
@@ -54,19 +54,32 @@ public class AnalisadorLexico {
 	public Token analisa() {
 		leChar();
 		while (simbolo == ' ' || simbolo == '\t') leChar(); // elimina espaços em branco
-		if (Character.isDigit(simbolo)) {
+		if (Character.isDigit(simbolo)) { //se o primeiro simbolo lido eh um numero, entao calcula-se o valor e retorna um numero
 			int valor = 0;
 			do{
-				valor = 10*valor + Character.digit(simbolo, 10);
-				leChar();
+				valor = 10*valor + Character.digit(simbolo, 10); //multiplica as dezenas e soma com o valor na base 10 do char lido.
+				leChar(); // incrementa o ponteiro
 			}while(Character.isDigit(simbolo));
 			return new Num(valor);
 		}
-		if (Character.isLetter(simbolo)) {			
-
+		if (Character.isLetter(simbolo)) { //se o primeiro simbolo for uma letra, entao devolver um identificador
+			StringBuilder id = new StringBuilder(); //nao utilizei concatenacao por estar dentro de um loop
+			do{
+				id.append(simbolo); // concatena os simbolos para formar o identiicador
+				leChar();			
+			}while(Character.isLetterOrDigit(simbolo));
+			Palavra p = (Palavra) tabela.get(id.toString()); //verifica na tabela se eh uma palavra reservada
+			if(p != null) return p; //se foi encontrado, retornar o token
+			p = new Palavra(Tipo.ID, id.toString()); // senao criar um token e cadastrar na tabela para devolver
+			tabela.put(id.toString(), p);
+/*Debug*/			System.out.println("Cadastrado na tabela: " + p);
+			return p;
 		}
-
-		return null;
+		
+		simbolo = ' ';
+		return new Token(simbolo); // tudo que não for reconhecido como letra ou numero é retornado como um token 
+									// com o proprio valor, pois provavelmente é
+									// um operador.
 
 	}
 
