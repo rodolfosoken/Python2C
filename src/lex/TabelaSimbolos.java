@@ -3,8 +3,8 @@ package lex;
 import java.util.Hashtable;
 
 public class TabelaSimbolos {
-	private Hashtable<String, Token> tabela;
-	protected TabelaSimbolos pai;
+	private Hashtable<String, Token> tabela;	
+	protected TabelaSimbolos pai; 				//possibilita aninhamento de tabelas para diferentes escopos
 
 	public TabelaSimbolos(TabelaSimbolos pai) {
 		tabela = new Hashtable<>();

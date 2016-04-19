@@ -1,9 +1,11 @@
 package lex;
 
-public class Tipo {
+public class Tipo { //especifica constantes para serem 
+					//usadas no switch case do analisador sintático
 	public final static int 
 	NUM = 256, 		//Numeros
 	ID=257, 		//identificadores
+	
 	//Palavras reservadas
 	TRUE=258, 		
 	FALSE = 259,

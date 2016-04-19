@@ -6,4 +6,7 @@ public class Palavra extends Token{
 		super(tipo);
 		this.lexema = lexema;
 	}
+	public String toString(){
+		return lexema;
+	}
 }
