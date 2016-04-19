@@ -45,22 +45,24 @@ public class AnalisadorLexico {
 	}
 
 	private void leChar() {
-		if (indexChar < 0)
+		if (indexChar < 0 || linha.isEmpty())
 			leLinha(); // verifica se a linha já foi inicializada;
-		if (indexChar < linha.length())
-			simbolo = linha.charAt(indexChar++); // le o caracter e depois
-													// incrementa o ponteiro;
+		if (indexChar < linha.length())	simbolo = linha.charAt(indexChar++ ); // le o caracter e depois incrementa o ponteiro;
+		else leLinha(); // ao terminar de ler os caracteres da linha, ler a proxima linha
 	}
 
 	public Token analisa() {
 		leChar();
-		while (simbolo == ' ' || simbolo == '\t')
-			leChar(); // elimina espaços em branco
+		while (simbolo == ' ' || simbolo == '\t') leChar(); // elimina espaços em branco
 		if (Character.isDigit(simbolo)) {
-			
-
+			int valor = 0;
+			do{
+				valor = 10*valor + Character.digit(simbolo, 10);
+				leChar();
+			}while(Character.isDigit(simbolo));
+			return new Num(valor);
 		}
-		if (Character.isLetter(simbolo)) {
+		if (Character.isLetter(simbolo)) {			
 
 		}
 
