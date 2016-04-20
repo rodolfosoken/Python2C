@@ -1,9 +1,11 @@
 package sintaxe;
 
+import java.io.IOException;
 import java.util.Stack;
 
 import lex.AnalisadorLexico;
 import lex.Token;
+import sintaxe.lex.NumRegras;
 
 public class AnalisadorSLR {
 
@@ -17,7 +19,9 @@ public class AnalisadorSLR {
 	private Goto go[][] = new Goto[200][100];
 	private int regras[] = new int[100];
 
-	void analisa() {
+	void analisa() throws IOException {
+		NumRegras num = new NumRegras("src/testes/testeRegrasNum.txt");
+		int []qtdRegra = num.numeraRegras();
 		Token token = lex.analisa(); // pega o primeiro simbolo da entrada.
 		while (true) {
 			Stack<Integer> pilha = new Stack<>(); // pilha de estados
@@ -33,7 +37,9 @@ public class AnalisadorSLR {
 				pilha.push(acao.numero);
 				token = lex.analisa();
 			}else if(acao.operacao == 'r'){
-				//desempilha os simbolos da producao
+				for (int i = 0; i < qtdRegra[acao.numero]; i++) {
+					pilha.pop();	//desempilha os simbolos da producao				
+				}
 				topo = pilha.pop();
 				pilha.push(go[topo][regras[acao.numero]].estado);
 			}
