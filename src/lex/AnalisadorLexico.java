@@ -108,7 +108,6 @@ public class AnalisadorLexico {
 /*Debug*/	System.out.println("Cadastrado na tabela: " + p);
 			return p;
 		}
-		
 		Token t = new Token(simbolo);// tudo que não for reconhecido como letra ou numero é retornado como um token 
 		// com o proprio valor, pois provavelmente é
 		// um operador.
