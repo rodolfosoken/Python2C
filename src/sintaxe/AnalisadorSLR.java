@@ -29,11 +29,13 @@ public class AnalisadorSLR {
 			Stack<Integer> pilha = new Stack<>(); // pilha de estados
 			int topo = pilha.pop(); // pega o topo da pilha
 			int tipoToken = token.tipo; // pega o tipo que será o index da
-										// tabela.. na tabela podemos mudar a
-										// ordem das colunas do action para
-										// corresponder aos numeros dos tokens
-			if (tipoToken < 255)	//se ele for menor que 255 nao eh um terminal 
-				tipoToken -= 32;	//os caracteres de operadores estao depois de 32
+										// tabela.. na tabela
+			if(tipoToken > 255) tipoToken -= 255;  // para os tokens com valores reservados podemos colocar na ordem que desejarmos
+			else if (tipoToken < 255 && tipoToken < 48 ) tipoToken -= 4; //para os tokens com valores basicos precisamos coloca-los ordenados
+			else if(tipoToken == 59) tipoToken = 45;
+			else if(tipoToken > 59 && tipoToken < 63) tipoToken -= 14;
+			else if(tipoToken == 91) tipoToken = 49;
+			else if(tipoToken == 93) tipoToken = 50;
 			Acao acao = action[topo][tipoToken];
 			if (acao.operacao == 'S') {
 				pilha.push(acao.numero);
