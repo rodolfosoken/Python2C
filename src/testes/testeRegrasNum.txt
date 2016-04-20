@@ -1,3 +1,4 @@
+{ S , Comandos , Comando , Expr_star , IncExpr , IF , While , For , Func , Def , Var_star , Op , ExprComp , OpComp , ExprComp_star , Var , OpIg , VarNum , NUM , Id , Int , Float , IntId , Corpo , Elif , Else , FuncRange 
 /* 0) */  S -> Comandos ;
 /* 1) */  Comandos -> Comando br ;
 /* 2) */  Comandos -> Comando pontovirgula Comandos ;

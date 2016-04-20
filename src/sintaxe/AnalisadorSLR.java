@@ -17,11 +17,10 @@ public class AnalisadorSLR {
 
 	private Acao action[][] = new Acao[200][100];
 	private Goto go[][] = new Goto[200][100];
-	private int regras[] = new int[100];
 
 	void analisa() throws IOException {
 		NumRegras num = new NumRegras("src/testes/testeRegrasNum.txt");
-		int []qtdRegra = num.numeraRegras();
+		int [][]qtdRegra = num.numeraRegras();
 		Token token = lex.analisa(); // pega o primeiro simbolo da entrada.
 		while (true) {
 			Stack<Integer> pilha = new Stack<>(); // pilha de estados
@@ -37,11 +36,12 @@ public class AnalisadorSLR {
 				pilha.push(acao.numero);
 				token = lex.analisa();
 			}else if(acao.operacao == 'r'){
-				for (int i = 0; i < qtdRegra[acao.numero]; i++) {
+				for (int i = 0; i < qtdRegra[acao.numero][1]; i++) {
 					pilha.pop();	//desempilha os simbolos da producao				
 				}
 				topo = pilha.pop();
-				pilha.push(go[topo][regras[acao.numero]].estado);
+				
+				pilha.push(go[topo][qtdRegra[acao.numero][0]].estado);
 			}
 			
 			
