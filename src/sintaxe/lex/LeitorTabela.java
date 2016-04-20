@@ -6,15 +6,17 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import sintaxe.Acao;
+import sintaxe.Goto;
 
-public class LeitorTabelaAction {
-	private Acao[][] tabela;
+public class LeitorTabela {
+	private Acao[][] tabelaAction = new Acao[163][51];
+	private Goto[][] tabelaGoto = new Goto[163][27];
 	private BufferedReader br;
 	private String url;
 	private String linha;
 	private int contLinha;
 
-	public LeitorTabelaAction(String url) {
+	public LeitorTabela(String url) {
 		this.url = url;
 		try {
 			br = new BufferedReader(new FileReader(url));
@@ -23,14 +25,14 @@ public class LeitorTabelaAction {
 		}
 	}
 
-	public Acao[][] criaTabela() throws IOException {
+	public Acao[][] criaTabelaAction() throws IOException {
 		contLinha = 0;
 		while ((linha = br.readLine()) != null) {
 			String s[] = linha.split(";");
 			int i = 0;
 			for (String string : s) {
-				if (!string.isEmpty()) {
-					tabela[contLinha][i++] = new Acao(string.trim().charAt(0),
+				if (!string.isEmpty() && i<51) { // delimitar para não pegar a goto
+					tabelaAction[contLinha][i++] = new Acao(string.trim().charAt(0),
 							Character.digit(string.trim().charAt(1), 10));
 				}
 			}
@@ -38,7 +40,7 @@ public class LeitorTabelaAction {
 			contLinha++;
 		}
 
-		return tabela;
+		return tabelaAction;
 	}
 
 }
