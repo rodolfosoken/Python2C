@@ -96,7 +96,7 @@ public class AnalisadorLexico {
 			return new Num(valor);
 		}
 		if (Character.isLetter(simbolo)) { //se o primeiro simbolo for uma letra, entao devolver um identificador
-			StringBuilder id = new StringBuilder(); //nao utilizei concatenacao por estar dentro de um loop
+			StringBuilder id = new StringBuilder();
 			do{
 				id.append(simbolo); // concatena os simbolos para formar o identiicador
 				leChar();			
@@ -105,15 +105,15 @@ public class AnalisadorLexico {
 			if(p != null) return p; //se foi encontrado, retornar o token
 			p = new Palavra(Tipo.ID, id.toString()); // senao criar um token e cadastrar na tabela para devolver
 			tabela.put(id.toString(), p);
-/*Debug*/			System.out.println("Cadastrado na tabela: " + p);
+/*Debug*/	System.out.println("Cadastrado na tabela: " + p);
 			return p;
 		}
 		
+		Token t = new Token(simbolo);// tudo que não for reconhecido como letra ou numero é retornado como um token 
+		// com o proprio valor, pois provavelmente é
+		// um operador.
 		simbolo = ' ';
-		return new Token(simbolo); // tudo que não for reconhecido como letra ou numero é retornado como um token 
-									// com o proprio valor, pois provavelmente é
-									// um operador.
-
+		return t;  
 	}
 
 }
