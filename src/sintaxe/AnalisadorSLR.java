@@ -13,19 +13,28 @@ public class AnalisadorSLR {
 		this.lex = lex;
 	}
 
-	private Estado action[][] = new Estado[200][100];
+	private Acao action[][] = new Acao[200][100];
 
 	void analisa() {
+		Token token = lex.analisa(); // pega o primeiro simbolo da entrada.
 		while (true) {
-			Stack<Estado> pilha = new Stack<>();
-			int top = pilha.pop().numero;
-			Token token = lex.analisa();
-			int tipoToken = token.tipo;
-			if(tipoToken < 255) tipoToken-=40; //só para testes, mas a aquela ideia inicial estava certa...se ele achar um n-terminal que não seja um dos que nós declaramos, vai dar erro
-			if (action[top][tipoToken].operacao == 's') {
-
+			Stack<Integer> pilha = new Stack<>(); // pilha de estados
+			int topo = pilha.pop(); // pega o topo da pilha
+			int tipoToken = token.tipo; // pega o tipo que será o index da
+										// tabela.. na tabela podemos mudar a
+										// ordem das colunas do action para
+										// corresponder aos numeros dos tokens
+			if (tipoToken < 255)	//se ele for menor que 255 nao eh um terminal 
+				tipoToken -= 32;	//os caracteres de operadores estao depois de 32
+			Acao acao = action[topo][tipoToken];
+			if (acao.operacao == 's') {
+				pilha.push(acao.numero);
+				token = lex.analisa();
+			}else if(acao.operacao == 'r'){
+				
 			}
-
+			
+			
 		}
 
 	}

@@ -1,10 +1,10 @@
 package sintaxe;
 
-public class Estado {
+public class Acao {
 	public final char operacao;
 	public final int numero;
 	
-	public Estado(char operacao, int numero){
+	public Acao(char operacao, int numero){
 		this.operacao = operacao;
 		this.numero = numero;
 	}
