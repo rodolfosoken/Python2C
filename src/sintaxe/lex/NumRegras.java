@@ -47,7 +47,6 @@ public class NumRegras {
 				s.append(simbolo);
 				simbolo = linha.charAt(++indexChar);
 			} while (simbolo != '-');
-			System.out.println(s.toString());
 			indexChar += 3;
 			simbolo = linha.charAt(indexChar);
 			int contWord = linha.substring(indexChar).split(" ").length;

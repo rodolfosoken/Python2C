@@ -40,7 +40,6 @@ public class AnalisadorSLR {
 					pilha.pop();	//desempilha os simbolos da producao				
 				}
 				topo = pilha.pop();
-				
 				pilha.push(go[topo][qtdRegra[acao.numero][0]].estado);
 			}
 			
