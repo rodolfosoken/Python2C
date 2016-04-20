@@ -9,8 +9,8 @@ import sintaxe.Acao;
 import sintaxe.Goto;
 
 public class LeitorTabela {
-	private Acao[][] tabelaAction = new Acao[163][51];
-	private Goto[][] tabelaGoto = new Goto[163][27];
+	public Acao[][] tabelaAction = new Acao[163][51];
+	public Goto[][] tabelaGoto = new Goto[163][27];
 	private BufferedReader br;
 	private String url;
 	private String linha;
@@ -25,7 +25,7 @@ public class LeitorTabela {
 		}
 	}
 
-	public Acao[][] criaTabelaAction() throws IOException {
+	public void criaTabelaAction() throws IOException {
 		contLinha = 0;
 		while ((linha = br.readLine()) != null) {
 			String s[] = linha.split(";");
@@ -35,13 +35,15 @@ public class LeitorTabela {
 													// goto
 					tabelaAction[contLinha][i++] = new Acao(string.trim().charAt(0),
 							Character.digit(string.trim().charAt(1), 10));
+				} else if (!string.isEmpty()) {
+					tabelaGoto[contLinha][i - 51] = new Goto(String.valueOf(i - 51), Integer.parseInt(string.trim()));
+					i++;
 				}
-				
+
 			}
 
 			contLinha++;
 		}
 
-		return tabelaAction;
 	}
 }
