@@ -10,9 +10,12 @@ import sintaxe.lex.NumRegras;
 public class AnalisadorSLR {
 
 	private AnalisadorLexico lex;
+	private String urlRegras;
 
-	public AnalisadorSLR(AnalisadorLexico lex) {
+	public AnalisadorSLR(AnalisadorLexico lex, String urlRegras) {
 		this.lex = lex;
+		this.urlRegras = urlRegras;
+		
 	}
 
 	private Acao action[][] = new Acao[200][100];
@@ -32,17 +35,18 @@ public class AnalisadorSLR {
 			if (tipoToken < 255)	//se ele for menor que 255 nao eh um terminal 
 				tipoToken -= 32;	//os caracteres de operadores estao depois de 32
 			Acao acao = action[topo][tipoToken];
-			if (acao.operacao == 's') {
+			if (acao.operacao == 'S') {
 				pilha.push(acao.numero);
 				token = lex.analisa();
-			}else if(acao.operacao == 'r'){
-				for (int i = 0; i < qtdRegra[acao.numero][1]; i++) {
+			}else if(acao.operacao == 'R'){
+				for (int i = 0; i < qtdRegra[acao.numero][1]; i++) { //qtdRegra[acao.numero][1] eh a quantidade de tokens que a regra do reduce possui
 					pilha.pop();	//desempilha os simbolos da producao				
 				}
 				topo = pilha.pop();
-				pilha.push(go[topo][qtdRegra[acao.numero][0]].estado);
-			}
-			
+				pilha.push(go[topo][qtdRegra[acao.numero][0]].estado); //qtdRegra[acao.numero][0] eh o numero da regra no indice da tabela goto
+				System.out.println("Reduce com a regra"+ qtdRegra[acao.numero][0]);
+			}else if(acao.operacao == 'a') System.out.println("Analise terminou");
+			else System.out.println("erro");
 			
 		}
 
