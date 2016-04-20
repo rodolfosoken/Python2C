@@ -14,6 +14,8 @@ public class AnalisadorSLR {
 	}
 
 	private Acao action[][] = new Acao[200][100];
+	private Goto go[][] = new Goto[200][100];
+	private int regras[] = new int[100];
 
 	void analisa() {
 		Token token = lex.analisa(); // pega o primeiro simbolo da entrada.
@@ -31,7 +33,9 @@ public class AnalisadorSLR {
 				pilha.push(acao.numero);
 				token = lex.analisa();
 			}else if(acao.operacao == 'r'){
-				
+				//desempilha os simbolos da producao
+				topo = pilha.pop();
+				pilha.push(go[topo][regras[acao.numero]].estado);
 			}
 			
 			
