@@ -25,7 +25,40 @@ public class AnalisadorLexico {
 	}
 
 	private void inicializaTabela() {
-		reserva(new Palavra(Tipo.FALSE, "false"));
+		reserva(new Palavra(Tipo.BR, "\n"));
+		reserva(new Palavra(Tipo.IGIG, "=="));
+		reserva(new Palavra(Tipo.MAIORIG, ">="));
+		reserva(new Palavra(Tipo.MENORIG, "<="));
+		reserva(new Palavra(Tipo.DIFER, "!="));
+		reserva(new Palavra(Tipo.AND, "and"));
+		reserva(new Palavra(Tipo.OR, "or"));
+		reserva(new Palavra(Tipo.NOT, "not"));
+		reserva(new Palavra(Tipo.IN, "in"));
+		reserva(new Palavra(Tipo.IS, "is"));
+		reserva(new Palavra(Tipo.MAISIG, "+="));
+		reserva(new Palavra(Tipo.MENOSIG, "-="));
+		reserva(new Palavra(Tipo.VEZESIG, "*="));
+		reserva(new Palavra(Tipo.ARRIGUAL, "@="));
+		reserva(new Palavra(Tipo.DIVIG, "/="));
+		reserva(new Palavra(Tipo.PERCIGUAL, "%="));
+		reserva(new Palavra(Tipo.EIGUAL, "&="));
+		reserva(new Palavra(Tipo.OUIGUAL, "|="));
+		reserva(new Palavra(Tipo.POTIGUAL, "^="));
+		reserva(new Palavra(Tipo.MENORMENORIGUAL, "<<="));
+		reserva(new Palavra(Tipo.MAIORMAIORIGUAL, ">>="));
+		reserva(new Palavra(Tipo.VEZESVEZESIGUAL, "**="));
+		reserva(new Palavra(Tipo.DIVDIVIGUAL, "//="));
+		reserva(new Palavra(Tipo.IFT, "if"));
+		reserva(new Palavra(Tipo.DOISPONTOS, ":"));
+		reserva(new Palavra(Tipo.ELIFT, "elif"));
+		reserva(new Palavra(Tipo.ELSET, "else"));
+		reserva(new Palavra(Tipo.WHILET, "while"));
+		reserva(new Palavra(Tipo.FORT, "for"));
+		reserva(new Palavra(Tipo.BRIDENT, "\n\t"));
+		reserva(new Palavra(Tipo.INPUT, "input"));
+		reserva(new Palavra(Tipo.PRINT, "print"));
+		reserva(new Palavra(Tipo.RANGE, "range"));
+		reserva(new Palavra(Tipo.DEF, "def"));
 		// colocar todas as palavras reservaddas aqui.
 	}
 
