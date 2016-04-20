@@ -31,10 +31,12 @@ public class LeitorTabela {
 			String s[] = linha.split(";");
 			int i = 0;
 			for (String string : s) {
-				if (!string.isEmpty() && i<51) { // delimitar para não pegar a goto
+				if (!string.isEmpty() && i < 51) { // delimitar para não pegar a
+													// goto
 					tabelaAction[contLinha][i++] = new Acao(string.trim().charAt(0),
 							Character.digit(string.trim().charAt(1), 10));
 				}
+				
 			}
 
 			contLinha++;
@@ -42,5 +44,4 @@ public class LeitorTabela {
 
 		return tabelaAction;
 	}
-
 }
