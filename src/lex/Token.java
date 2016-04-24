@@ -5,5 +5,9 @@ public class Token {
 	public Token(int tipo){
 		this.tipo = tipo;
 	}
+	
+	public String toString(){
+		return "<"+Character.toString((char)this.tipo)+">";
+	}
 
 }
