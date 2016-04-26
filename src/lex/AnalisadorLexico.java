@@ -142,7 +142,7 @@ public class AnalisadorLexico {
 														// cadastrar na tabela
 														// para devolver
 			tabela.put(id.toString(), p);
-			/* Debug */ System.out.println("Cadastrado na tabela: " + p);
+///* Debug */ System.out.println("Cadastrado na tabela: " + p);
 			return p;
 		}
 
