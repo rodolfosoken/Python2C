@@ -1,4 +1,4 @@
-package sintaxe.lex;
+package sintaxe;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

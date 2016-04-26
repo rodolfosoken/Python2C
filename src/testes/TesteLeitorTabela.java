@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import sintaxe.Acao;
 import sintaxe.Goto;
-import sintaxe.lex.LeitorTabela;
+import sintaxe.LeitorTabela;
 
 public class TesteLeitorTabela {
 	public static void main(String[] args) throws IOException {

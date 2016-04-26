@@ -1,12 +1,9 @@
-package sintaxe.lex;
+package sintaxe;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-
-import sintaxe.Acao;
-import sintaxe.Goto;
 
 public class LeitorTabela {
 	public Acao[][] tabelaAction = new Acao[163][51];

@@ -2,7 +2,7 @@ package testes;
 
 import java.io.IOException;
 
-import sintaxe.lex.NumRegras;
+import sintaxe.NumRegras;
 
 public class TesteNumRegras {
 	public static void main(String[] args) throws IOException {

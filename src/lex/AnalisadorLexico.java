@@ -44,6 +44,8 @@ public class AnalisadorLexico {
 		reserva(new Palavra(Tipo.EIGUAL, "&="));
 		reserva(new Palavra(Tipo.OUIGUAL, "|="));
 		reserva(new Palavra(Tipo.POTIGUAL, "^="));
+		reserva(new Palavra(Tipo.MENORMENOR, "<<"));
+		reserva(new Palavra(Tipo.MAIORMAIOR, ">>"));
 		reserva(new Palavra(Tipo.MENORMENORIGUAL, "<<="));
 		reserva(new Palavra(Tipo.MAIORMAIORIGUAL, ">>="));
 		reserva(new Palavra(Tipo.VEZESVEZESIGUAL, "**="));
@@ -82,9 +84,11 @@ public class AnalisadorLexico {
 		if (linha == null)
 			linha = "$"; // terminou de ler o arquivo
 		else {
-			if (indexChar < 0 || linha.isEmpty())
-				leLinha(); // verifica se a linha já foi inicializada;
-			if (indexChar < linha.length())
+			if (indexChar < 0 || linha.isEmpty())// verifica se a linha já foi
+													// inicializada;
+				leLinha();
+			if (indexChar < linha.length())// verifica se o ponteiro chegou ao
+											// fim da linha
 				simbolo = linha.charAt(indexChar++); // le o caracter e depois
 														// incrementa o
 														// ponteiro;
@@ -95,9 +99,10 @@ public class AnalisadorLexico {
 	}
 
 	public Token analisa() {
-		leChar();
+		// leChar();
 		while (simbolo == ' ' || simbolo == '\t')
 			leChar(); // elimina espaços em branco
+
 		if (Character.isDigit(simbolo)) { // se o primeiro simbolo lido eh um
 											// numero, entao calcula-se o valor
 											// e retorna um numero
@@ -138,6 +143,114 @@ public class AnalisadorLexico {
 			/* Debug */ System.out.println("Cadastrado na tabela: " + p);
 			return p;
 		}
+
+		// faz o look ahead e verifica se são os operadores de atribuição
+		switch (simbolo) {
+		case '=':
+			leChar();
+			if (simbolo == '=')
+				return tabela.get("==");
+			else
+				return new Token('='); // o caracter na variavel simbolo sera
+										// analisado na proxima iteração
+		
+		case '+':
+			leChar();
+			if (simbolo == '=')
+				return tabela.get("+=");
+			else
+				return new Token('+');
+		
+		case '-':
+			leChar();
+			if (simbolo == '=')
+				return tabela.get("-=");
+			else
+				return new Token('-');
+		case '@':
+			leChar();
+			if (simbolo == '=')
+				return tabela.get("@=");
+			else
+				return new Token('@');
+			
+		case '&':
+			leChar();
+			if (simbolo == '=')
+				return tabela.get("&=");
+			else
+				return new Token('&');
+			
+		case '|':
+			leChar();
+			if (simbolo == '=')
+				return tabela.get("|=");
+			else
+				return new Token('|');
+			
+		case '^':
+			leChar();
+			if (simbolo == '=')
+				return tabela.get("^=");
+			else
+				return new Token('^');
+			
+		case '>':
+			leChar();
+			if (simbolo == '>') {
+				leChar();
+				if (simbolo == '=') {
+					leChar(); // simbolo atual já foi analisado.
+					return tabela.get(">>=");
+				} else return tabela.get(">>");
+			} else if (simbolo == '='){
+				leChar();
+				return tabela.get(">=");
+			}else return new Token('>');
+		
+		case '<':
+			leChar();
+			if (simbolo == '<') {
+				leChar();
+				if (simbolo == '=') {
+					leChar(); // simbolo atual já foi analisado.
+					return tabela.get("<<=");
+				} else return tabela.get("<<");
+			} else if (simbolo == '='){
+				leChar();
+				return tabela.get("<=");
+			}else return new Token('<');
+			
+		case '*':
+			leChar();
+			if (simbolo == '*') {
+				leChar();
+				if (simbolo == '=') {
+					leChar(); // simbolo atual já foi analisado.
+					return tabela.get("**=");
+				} else return tabela.get("**");
+			} else if (simbolo == '='){
+				leChar();
+				return tabela.get("*=");
+			}else return new Token('*');
+			
+		case '/':
+			leChar();
+			if (simbolo == '/') {
+				leChar();
+				if (simbolo == '=') {
+					leChar(); // simbolo atual já foi analisado.
+					return tabela.get("//=");
+				} else return tabela.get("//");
+			} else if (simbolo == '='){
+				leChar();
+				return tabela.get("/=");
+			}else return new Token('/');
+			
+						
+
+		}
+
 		if (!linha.equals("$")) {
 			Token t = new Token(simbolo);// tudo que não for reconhecido como
 											// letra ou numero é retornado como

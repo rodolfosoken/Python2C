@@ -5,7 +5,6 @@ import java.util.Stack;
 
 import lex.AnalisadorLexico;
 import lex.Token;
-import sintaxe.lex.NumRegras;
 
 public class AnalisadorSLR {
 
