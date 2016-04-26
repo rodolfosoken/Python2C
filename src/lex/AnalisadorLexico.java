@@ -46,6 +46,8 @@ public class AnalisadorLexico {
 		reserva(new Palavra(Tipo.POTIGUAL, "^="));
 		reserva(new Palavra(Tipo.MENORMENOR, "<<"));
 		reserva(new Palavra(Tipo.MAIORMAIOR, ">>"));
+		reserva(new Palavra(Tipo.DIVDIV, "//"));
+		reserva(new Palavra(Tipo.VEZESVEZES, "**"));
 		reserva(new Palavra(Tipo.MENORMENORIGUAL, "<<="));
 		reserva(new Palavra(Tipo.MAIORMAIORIGUAL, ">>="));
 		reserva(new Palavra(Tipo.VEZESVEZESIGUAL, "**="));

@@ -6,8 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class LeitorTabela {
-	public Acao[][] tabelaAction = new Acao[163][51];
-	public Goto[][] tabelaGoto = new Goto[163][27];
+	private final int altTab = 168;
+	private final int lagTabAc = 57;
+	private final int lagTabGo = 27;
+	public Acao[][] tabelaAction = new Acao[altTab][lagTabAc];
+	public Goto[][] tabelaGoto = new Goto[altTab][lagTabGo];
 	private BufferedReader br;
 	private String url;
 	private String linha;
@@ -24,17 +27,17 @@ public class LeitorTabela {
 
 	public void criaTabelaAction() throws IOException {
 		contLinha = 0;
-		while ((linha = br.readLine()) != null && contLinha < 163) {
+		while ((linha = br.readLine()) != null && contLinha < altTab) {
 			String s[] = linha.split(";");
 			int i = 0;
 			for (String string : s) {
-				if ((!string.isEmpty()) && i < 51) { // delimitar para não pegar a goto
+				if ((!string.isEmpty()) && i < lagTabAc) { // delimitar para não pegar a goto
 					String[] res = string.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)"); //separa numeros e letras
 					if(res[0].charAt(0)=='a') 
 						tabelaAction[contLinha][i++] = new Acao('a', 0);
 					else tabelaAction[contLinha][i++] = new Acao(res[0].charAt(0),Integer.parseInt(res[1]));
 				} else if (!string.isEmpty()) {
-					tabelaGoto[contLinha][i - 51] = new Goto(String.valueOf(i-51),Integer.parseInt(string));
+					tabelaGoto[contLinha][i - lagTabAc] = new Goto(String.valueOf(i-lagTabAc),Integer.parseInt(string));
 					i++;
 				}else{
 					i++;
