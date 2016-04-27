@@ -7,6 +7,7 @@ public class Token {
 	}
 	
 	public String toString(){
+		if (this.tipo == 236) return "<br>";
 		return "<"+Character.toString((char)this.tipo)+">";
 	}
 

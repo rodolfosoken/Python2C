@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class AnalisadorLexico {
-	public int contLinha = 0; // contador de linhas para o reportar erros
+	public int contLinha = -1; // contador de linhas para o reportar erros
 	private String linha;
 	private char simbolo = ' '; // simbolo a ser analisado
 	private int indexChar = -1; // aponta para o caracter a ser lido
@@ -83,27 +83,48 @@ public class AnalisadorLexico {
 	}
 
 	private void leChar() {
-		if (linha == null)
-			linha = "$"; // terminou de ler o arquivo
-		else {
-			if (indexChar < 0 || linha.isEmpty())// verifica se a linha já foi
-													// inicializada;
-				leLinha();
+		if (indexChar < 0 || contLinha < 0)// verifica se a linha já foi
+											// inicializada;
+			leLinha();
+
+		if (linha != null) {
 			if (indexChar < linha.length())// verifica se o ponteiro chegou ao
 											// fim da linha
 				simbolo = linha.charAt(indexChar++); // le o caracter e depois
 														// incrementa o
 														// ponteiro;
-			else
+			// else if (indexChar < linha.length() + 1) {
+			// simbolo = '\n';
+			// indexChar++;
+			// }
+			else {
 				leLinha(); // ao terminar de ler os caracteres da linha, ler a
-							// proxima linha
+				// proxima linha
+			}
+		} else {
+			linha = "$eof"; // termina a leitura do arquivo. Precisa começar com
+							// um
+							// simbolo que não é letra nem numero ou qualquer
+							// palavra chave
 		}
+
 	}
 
 	public Token analisa() {
-		// leChar();
 		while (simbolo == ' ' || simbolo == '\t')
 			leChar(); // elimina espaços em branco
+		
+		if (simbolo == '#') { // elimina comentários
+			int atual = contLinha;
+			leChar();
+			while (atual == contLinha){ // ignora todo o resto da linha
+				leChar(); // ignora comentários
+				if(atual != contLinha) leChar();
+				while(simbolo == '\t' || simbolo == ' ') leChar();
+				if(simbolo=='#') atual = contLinha;
+			}
+
+		}
 
 		if (Character.isDigit(simbolo)) { // se o primeiro simbolo lido eh um
 											// numero, entao calcula-se o valor
@@ -142,7 +163,7 @@ public class AnalisadorLexico {
 														// cadastrar na tabela
 														// para devolver
 			tabela.put(id.toString(), p);
-///* Debug */ System.out.println("Cadastrado na tabela: " + p);
+			/// * Debug */ System.out.println("Cadastrado na tabela: " + p);
 			return p;
 		}
 
@@ -155,14 +176,14 @@ public class AnalisadorLexico {
 			else
 				return new Token('='); // o caracter na variavel simbolo sera
 										// analisado na proxima iteração
-		
+
 		case '+':
 			leChar();
 			if (simbolo == '=')
 				return tabela.get("+=");
 			else
 				return new Token('+');
-		
+
 		case '-':
 			leChar();
 			if (simbolo == '=')
@@ -175,28 +196,28 @@ public class AnalisadorLexico {
 				return tabela.get("@=");
 			else
 				return new Token('@');
-			
+
 		case '&':
 			leChar();
 			if (simbolo == '=')
 				return tabela.get("&=");
 			else
 				return new Token('&');
-			
+
 		case '|':
 			leChar();
 			if (simbolo == '=')
 				return tabela.get("|=");
 			else
 				return new Token('|');
-			
+
 		case '^':
 			leChar();
 			if (simbolo == '=')
 				return tabela.get("^=");
 			else
 				return new Token('^');
-			
+
 		case '>':
 			leChar();
 			if (simbolo == '>') {
@@ -204,12 +225,14 @@ public class AnalisadorLexico {
 				if (simbolo == '=') {
 					leChar(); // simbolo atual já foi analisado.
 					return tabela.get(">>=");
-				} else return tabela.get(">>");
-			} else if (simbolo == '='){
+				} else
+					return tabela.get(">>");
+			} else if (simbolo == '=') {
 				leChar();
 				return tabela.get(">=");
-			}else return new Token('>');
-		
+			} else
+				return new Token('>');
+
 		case '<':
 			leChar();
 			if (simbolo == '<') {
@@ -217,12 +240,14 @@ public class AnalisadorLexico {
 				if (simbolo == '=') {
 					leChar(); // simbolo atual já foi analisado.
 					return tabela.get("<<=");
-				} else return tabela.get("<<");
-			} else if (simbolo == '='){
+				} else
+					return tabela.get("<<");
+			} else if (simbolo == '=') {
 				leChar();
 				return tabela.get("<=");
-			}else return new Token('<');
-			
+			} else
+				return new Token('<');
+
 		case '*':
 			leChar();
 			if (simbolo == '*') {
@@ -230,12 +255,14 @@ public class AnalisadorLexico {
 				if (simbolo == '=') {
 					leChar(); // simbolo atual já foi analisado.
 					return tabela.get("**=");
-				} else return tabela.get("**");
-			} else if (simbolo == '='){
+				} else
+					return tabela.get("**");
+			} else if (simbolo == '=') {
 				leChar();
 				return tabela.get("*=");
-			}else return new Token('*');
-			
+			} else
+				return new Token('*');
+
 		case '/':
 			leChar();
 			if (simbolo == '/') {
@@ -243,17 +270,18 @@ public class AnalisadorLexico {
 				if (simbolo == '=') {
 					leChar(); // simbolo atual já foi analisado.
 					return tabela.get("//=");
-				} else return tabela.get("//");
-			} else if (simbolo == '='){
+				} else
+					return tabela.get("//");
+			} else if (simbolo == '=') {
 				leChar();
 				return tabela.get("/=");
-			}else return new Token('/');
-			
-						
+			} else
+				return new Token('/');
 
 		}
 
-		if (!linha.equals("$")) {
+		if (!linha.equals("$eof")) { // verifica se a leitura do arquivo
+										// terminou.
 			Token t = new Token(simbolo);// tudo que não for reconhecido como
 											// letra ou numero é retornado como
 											// um token
@@ -262,7 +290,7 @@ public class AnalisadorLexico {
 			simbolo = ' ';
 			return t;
 		}
-		return null; // se encontrar $ é fim de arquivo;
+		return null; // se a linha retornar null é retornado null
 	}
 
 }
