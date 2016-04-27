@@ -7,7 +7,8 @@ public class Token {
 	}
 	
 	public String toString(){
-		if (this.tipo == 236) return "<br>";
+		if (this.tipo == Tipo.BR) return "<br>";
+		if(this.tipo == Tipo.BRIDENT) return "<brIdent>";
 		return "<"+Character.toString((char)this.tipo)+">";
 	}
 

@@ -25,7 +25,6 @@ public class AnalisadorLexico {
 	}
 
 	private void inicializaTabela() {
-		reserva(new Palavra(Tipo.BR, "\n"));
 		reserva(new Palavra(Tipo.IGIG, "=="));
 		reserva(new Palavra(Tipo.MAIORIG, ">="));
 		reserva(new Palavra(Tipo.MENORIG, "<="));
@@ -58,7 +57,6 @@ public class AnalisadorLexico {
 		reserva(new Palavra(Tipo.ELSET, "else"));
 		reserva(new Palavra(Tipo.WHILET, "while"));
 		reserva(new Palavra(Tipo.FORT, "for"));
-		reserva(new Palavra(Tipo.BRIDENT, "\n\t"));
 		reserva(new Palavra(Tipo.INPUT, "input"));
 		reserva(new Palavra(Tipo.PRINT, "print"));
 		reserva(new Palavra(Tipo.RANGE, "range"));
@@ -94,10 +92,10 @@ public class AnalisadorLexico {
 				simbolo = linha.charAt(indexChar++); // le o caracter e depois
 														// incrementa o
 														// ponteiro;
-			// else if (indexChar < linha.length() + 1) {
-			// simbolo = '\n';
-			// indexChar++;
-			// }
+			 else if (indexChar < linha.length() + 1) { //adiciona um token de quebra de linha
+			 simbolo = '\n';
+			 indexChar++;
+			 }
 			else {
 				leLinha(); // ao terminar de ler os caracteres da linha, ler a
 				// proxima linha
@@ -284,6 +282,12 @@ public class AnalisadorLexico {
 
 		if (!linha.equals("$eof")) { // verifica se a leitura do arquivo
 										// terminou.
+			if(simbolo == '\n') { //cria um token para quebra de linha e para identação;
+				leChar();
+				if(simbolo=='\t') return new Token(Tipo.BRIDENT);
+				else return new Token(Tipo.BR);
+			}
+			
 			Token t = new Token(simbolo);// tudo que não for reconhecido como
 											// letra ou numero é retornado como
 											// um token
