@@ -81,8 +81,8 @@ public class AnalisadorLexico {
 	}
 
 	private void leChar() {
-		if (indexChar < 0 || contLinha < 0){// verifica se a linha já foi
-			contLinha = 0;							// inicializada;
+		if (indexChar < 0 || contLinha < 0) {// verifica se a linha já foi
+			contLinha = 0; // inicializada;
 			leLinha();
 		}
 
@@ -92,28 +92,26 @@ public class AnalisadorLexico {
 				simbolo = linha.charAt(indexChar++); // le o caracter e depois
 														// incrementa o
 														// ponteiro;
-			 else if (indexChar < linha.length() + 1) { //adiciona um token de quebra de linha
-			 simbolo = '\n';
-			 indexChar++;
-			 }
-			else {
+			else if (simbolo !='\n' && indexChar < linha.length() + 1) { // adiciona um token de											// quebra de linha
+				simbolo = '\n';
+				indexChar++;
+			} else {
 				leLinha(); // ao terminar de ler os caracteres da linha, ler a
 				// proxima linha
-				if (linha != null && indexChar < linha.length()) simbolo = linha.charAt(indexChar++);
+				if (linha != null && indexChar < linha.length())
+					simbolo = linha.charAt(indexChar++);
 			}
-		} 
+		}
 
 	}
 
 	public Token analisa() {
 		while (simbolo == ' ' || simbolo == '\t')
 			leChar(); // elimina espaços em branco
-		
-		if (simbolo == '#')  // elimina comentários
-			while (simbolo != '\n') // ignora todo o resto da linha
-				leChar(); // ignora comentários
 
-		
+		if (simbolo == '#') // elimina comentários
+			while (simbolo != '\n') // ignora todo o resto da linha
+				leChar();
 
 		if (Character.isDigit(simbolo)) { // se o primeiro simbolo lido eh um
 											// numero, entao calcula-se o valor
@@ -269,14 +267,17 @@ public class AnalisadorLexico {
 
 		}
 
-		if (linha!=null) { // verifica se a leitura do arquivo
-										// terminou.
-			if(simbolo == '\n') { //cria um token para quebra de linha e para identação;
+		if (linha != null) { // verifica se a leitura do arquivo
+								// terminou.
+			if (simbolo == '\n') { // cria um token para quebra de linha e para
+									// identação;
 				leChar();
-				if(simbolo=='\t') return new Token(Tipo.BRIDENT);
-				else return new Token(Tipo.BR);
+				if (simbolo == '\t')
+					return new Token(Tipo.BRIDENT);
+				else
+					return new Token(Tipo.BR);
 			}
-			
+
 			Token t = new Token(simbolo);// tudo que não for reconhecido como
 											// letra ou numero é retornado como
 											// um token
