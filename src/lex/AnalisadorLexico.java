@@ -101,12 +101,7 @@ public class AnalisadorLexico {
 				// proxima linha
 				if (linha != null && indexChar < linha.length()) simbolo = linha.charAt(indexChar++);
 			}
-		} else {
-			linha = "$eof"; // termina a leitura do arquivo. Precisa começar com
-							// um
-							// simbolo que não é letra nem numero ou qualquer
-							// palavra chave
-		}
+		} 
 
 	}
 
@@ -114,17 +109,11 @@ public class AnalisadorLexico {
 		while (simbolo == ' ' || simbolo == '\t')
 			leChar(); // elimina espaços em branco
 		
-		if (simbolo == '#') { // elimina comentários
-			int atual = contLinha;
-			leChar();
-			while (atual == contLinha){ // ignora todo o resto da linha
+		if (simbolo == '#')  // elimina comentários
+			while (simbolo != '\n') // ignora todo o resto da linha
 				leChar(); // ignora comentários
-				if(atual != contLinha) leChar();
-				while(simbolo == '\t' || simbolo == ' ') leChar();
-				if(simbolo=='#') atual = contLinha;
-			}
 
-		}
+		
 
 		if (Character.isDigit(simbolo)) { // se o primeiro simbolo lido eh um
 											// numero, entao calcula-se o valor
@@ -280,7 +269,7 @@ public class AnalisadorLexico {
 
 		}
 
-		if (!linha.equals("$eof")) { // verifica se a leitura do arquivo
+		if (linha!=null) { // verifica se a leitura do arquivo
 										// terminou.
 			if(simbolo == '\n') { //cria um token para quebra de linha e para identação;
 				leChar();
