@@ -83,9 +83,10 @@ public class AnalisadorLexico {
 	}
 
 	private void leChar() {
-		if (indexChar < 0 || contLinha < 0)// verifica se a linha já foi
-											// inicializada;
+		if (indexChar < 0 || contLinha < 0){// verifica se a linha já foi
+			contLinha = 0;							// inicializada;
 			leLinha();
+		}
 
 		if (linha != null) {
 			if (indexChar < linha.length())// verifica se o ponteiro chegou ao
@@ -100,6 +101,7 @@ public class AnalisadorLexico {
 			else {
 				leLinha(); // ao terminar de ler os caracteres da linha, ler a
 				// proxima linha
+				if (linha != null && indexChar < linha.length()) simbolo = linha.charAt(indexChar++);
 			}
 		} else {
 			linha = "$eof"; // termina a leitura do arquivo. Precisa começar com
