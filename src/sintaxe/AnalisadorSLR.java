@@ -35,7 +35,7 @@ public class AnalisadorSLR {
 			int tipoToken = token.tipo; // pega o tipo que será o index da
 										// tabela.. na tabela
 			if(tipoToken > 255) tipoToken -= 256;  // para os tokens com valores reservados podemos colocar na ordem que desejarmos
-			else if (tipoToken < 48 ) tipoToken -= 0; //para os tokens com valores basicos precisamos coloca-los ordenados
+			else if (tipoToken == 58 ) tipoToken = 30; //para os tokens com valores basicos precisamos coloca-los ordenados
 			else if(tipoToken == 59) tipoToken = 49; 	//;
 			else if(tipoToken > 59 && tipoToken < 63) tipoToken -= 11; // >=<
 			else if(tipoToken == 91) tipoToken = 53;	//[
@@ -43,14 +43,18 @@ public class AnalisadorSLR {
 			else if(tipoToken == 94) tipoToken = 55;	//^
 			else if(tipoToken == 38) tipoToken = 56;	//&
 			Acao acao = action[topo][tipoToken];
+			if(acao == null){ 
+				System.out.println("ERRO! Sem ação em "+"action["+topo+"]["+tipoToken+"]"+
+			": Ao ler linha "+lex.contLinha);
+				break;
+			}
 			if (acao.operacao == 'S') {
 				pilha.push(acao.numero);
 				token = lex.analisa();
 				System.out.println("Shift: "+acao.numero);
 			}else if(acao.operacao == 'R'){
 				for (int i = 0; i < qtdRegra[acao.numero][1]; i++) { //qtdRegra[acao.numero][1] eh a quantidade de tokens que a regra do reduce possui
-					int a = pilha.pop();	//desempilha os simbolos da producao
-					if(a==0)pilha.push(0);
+					pilha.pop();	//desempilha os simbolos da producao
 				}
 				topo = pilha.pop();
 				pilha.push(topo);
