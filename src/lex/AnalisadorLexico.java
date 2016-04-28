@@ -286,7 +286,7 @@ public class AnalisadorLexico {
 			simbolo = ' ';
 			return t;
 		}
-		return null; // se a linha retornar null é retornado null
+		return new Token(Tipo.EOF); // se a linha retornar null é retornado null
 	}
 
 }

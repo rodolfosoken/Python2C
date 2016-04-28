@@ -1,6 +1,7 @@
 package testes;
 
 import lex.AnalisadorLexico;
+import lex.Tipo;
 import lex.Token;
 
 public class TesteAnalisadorLex {
@@ -9,7 +10,7 @@ public class TesteAnalisadorLex {
 		AnalisadorLexico lex = new AnalisadorLexico("src/testes/fonteTeste.txt");
 		while (true) {
 			Token t = lex.analisa();
-			if(t == null) break;
+			if(t.tipo == Tipo.EOF) break;
 			System.out.println(t);
 		}
 

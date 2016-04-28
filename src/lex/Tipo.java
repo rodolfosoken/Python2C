@@ -42,5 +42,6 @@ public class Tipo { //especifica constantes para serem
 	INPUT  = 292 ,
 	PRINT  = 293 ,
 	RANGE =  294,
-	DEF  = 295 ;
+	DEF  = 295 ,
+	EOF = 312;
 }

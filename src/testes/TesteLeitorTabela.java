@@ -9,7 +9,6 @@ import sintaxe.LeitorTabela;
 public class TesteLeitorTabela {
 	public static void main(String[] args) throws IOException {
 		LeitorTabela leitor = new LeitorTabela("src/testes/Pasta1.csv");
-		leitor.criaTabelaAction();
 		Acao[][] action = leitor.tabelaAction;
 		Goto[][] go = leitor.tabelaGoto;
 

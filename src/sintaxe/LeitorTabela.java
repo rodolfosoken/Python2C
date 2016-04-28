@@ -16,16 +16,17 @@ public class LeitorTabela {
 	private String linha;
 	private int contLinha=0;
 
-	public LeitorTabela(String url) {
+	public LeitorTabela(String url) throws IOException {
 		this.url = url;
 		try {
 			br = new BufferedReader(new FileReader(url));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		criaTabela();
 	}
 
-	public void criaTabelaAction() throws IOException {
+	private void criaTabela() throws IOException {
 		contLinha = 0;
 		while ((linha = br.readLine()) != null && contLinha < altTab) {
 			String s[] = linha.split(";");
