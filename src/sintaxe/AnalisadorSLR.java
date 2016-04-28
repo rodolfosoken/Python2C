@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Stack;
 
 import lex.AnalisadorLexico;
+import lex.Tipo;
 import lex.Token;
 
 public class AnalisadorSLR {
@@ -26,6 +27,7 @@ public class AnalisadorSLR {
 		NumRegras num = new NumRegras(this.urlRegras);
 		int [][]qtdRegra = num.numeraRegras();
 		Token token = lex.analisa(); // pega o primeiro simbolo da entrada.
+		while(token.tipo==Tipo.BR)token = lex.analisa();
 		Stack<Integer> pilha = new Stack<>(); // pilha de estados
 		pilha.push(0); // estado inicial
 		while (true) {
@@ -50,7 +52,9 @@ public class AnalisadorSLR {
 			}
 			if (acao.operacao == 'S') {
 				pilha.push(acao.numero);
+				Token ant = token;
 				token = lex.analisa();
+				while(ant.tipo==Tipo.BR && token.tipo==Tipo.BR) token=lex.analisa(); //retira as quebras de linhas a mais
 				System.out.println("Shift: "+acao.numero);
 			}else if(acao.operacao == 'R'){
 				for (int i = 0; i < qtdRegra[acao.numero][1]; i++) { //qtdRegra[acao.numero][1] eh a quantidade de tokens que a regra do reduce possui
