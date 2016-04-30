@@ -158,50 +158,64 @@ public class AnalisadorLexico {
 		switch (simbolo) {
 		case '=':
 			leChar();
-			if (simbolo == '=')
+			if (simbolo == '='){
+				leChar(); //ambos os simbolos já foram analisados
 				return tabela.get("==");
+			}
 			else
 				return new Token('='); // o caracter na variavel simbolo sera
 										// analisado na proxima iteração
 
 		case '+':
 			leChar();
-			if (simbolo == '=')
+			if (simbolo == '='){
+				leChar(); //ambos os simbolos já foram analisados
 				return tabela.get("+=");
+			}
 			else
 				return new Token('+');
 
 		case '-':
 			leChar();
-			if (simbolo == '=')
+			if (simbolo == '='){
+				leChar(); //ambos os simbolos já foram analisados
 				return tabela.get("-=");
+			}
 			else
 				return new Token('-');
 		case '@':
 			leChar();
-			if (simbolo == '=')
+			if (simbolo == '='){
+				leChar(); //ambos os simbolos já foram analisados
 				return tabela.get("@=");
+			}
 			else
 				return new Token('@');
 
 		case '&':
 			leChar();
-			if (simbolo == '=')
+			if (simbolo == '='){
+				leChar(); //ambos os simbolos já foram analisados
 				return tabela.get("&=");
+			}
 			else
 				return new Token('&');
 
 		case '|':
 			leChar();
-			if (simbolo == '=')
+			if (simbolo == '='){
+				leChar(); //ambos os simbolos já foram analisados
 				return tabela.get("|=");
+			}
 			else
 				return new Token('|');
 
 		case '^':
 			leChar();
-			if (simbolo == '=')
+			if (simbolo == '='){
+				leChar(); //ambos os simbolos já foram analisados
 				return tabela.get("^=");
+			}
 			else
 				return new Token('^');
 
