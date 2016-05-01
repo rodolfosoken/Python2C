@@ -40,10 +40,10 @@ public class AnalisadorSLR {
 			else if (tipoToken == 58 ) tipoToken = 30; //para os tokens com valores basicos precisamos coloca-los ordenados
 			else if(tipoToken == 59) tipoToken = 49; 	//;
 			else if(tipoToken > 59 && tipoToken < 63) tipoToken -= 11; // >=<
-			else if(tipoToken == 91) tipoToken = 53;	//[
-			else if(tipoToken == 93) tipoToken = 54;	//]
-			else if(tipoToken == 94) tipoToken = 55;	//^
-			else if(tipoToken == 38) tipoToken = 56;	//&
+			else if(tipoToken == 91) tipoToken = 52;	//[
+			else if(tipoToken == 93) tipoToken = 53;	//]
+			else if(tipoToken == 94) tipoToken = 54;	//^
+			else if(tipoToken == 38) tipoToken = 55;	//&
 			Acao acao = action[topo][tipoToken];
 			if(acao == null){ 
 				System.out.println("ERRO! Sem ação em "+"action["+topo+"]["+tipoToken+"]"+

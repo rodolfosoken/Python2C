@@ -11,7 +11,8 @@ public class TesteAnalisadorLex {
 		while (true) {
 			Token t = lex.analisa();
 			if(t.tipo == Tipo.EOF) break;
-			System.out.println(t);
+			if(t.tipo==Tipo.BR || t.tipo == Tipo.BRIDENT) System.out.println("");
+			System.out.print(t +" ");
 		}
 
 	}
