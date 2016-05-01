@@ -66,7 +66,7 @@ ebin	62	;
 
 
 begin S -> Comandos;
-Comandos -> Comando br | Comando pontovirgula Comandos | Comando br Comandos | Comando brident Comandos;
+Comandos -> Comando br | Comando brident| Comando pontovirgula Comandos | Comando br Comandos | Comando brident Comandos;
 Comando -> Expr_star | IncExpr | IF | While | For | Func | Def;
 
 Expr_star -> Var_star | Var_star igual Expr_star | Var_star Op Expr_star ;
@@ -96,7 +96,7 @@ For -> fort Id in FuncRange  doispontos Corpo | fort Id in colabr Var_star colfe
 
 Corpo -> brident Comandos | Comando br |  Comando pontovirgula;
 
-Func -> input parabr ExprComp_star parfec  | print parabr Expr_star parfec | FuncRange | Func virgula Func | colabr Func colfec  | parabr Func parfec | Id igual Func ;
+Func -> input parabr ExprComp_star parfec  | print parabr Expr_star parfec | Id parabr Expr_star parfec | Id parabr parfec |FuncRange | Id igual Func ;
 FuncRange -> range parabr IntId parfec | range parabr IntId virgula IntId parfec | range parabr IntId virgula  IntId virgula  IntId parfec;
 
 Def -> def Id parabr Var_star parfec doispontos Corpo | def Id parabr parfec doispontos  Corpo;

@@ -6,18 +6,19 @@ import java.util.Stack;
 import lex.AnalisadorLexico;
 import lex.Tipo;
 import lex.Token;
+import recursos.InfoTabela;
 
 public class AnalisadorSLR {
 
 	private AnalisadorLexico lex;
 	private String urlRegras;
-	private Acao action[][] = new Acao[200][100];
-	private Goto go[][] = new Goto[200][100];
+	private Acao action[][] = new Acao[InfoTabela.ALTURA][InfoTabela.LAG_ACTION];
+	private Goto go[][] = new Goto[InfoTabela.ALTURA][InfoTabela.LAG_GOTO];
 
-	public AnalisadorSLR(AnalisadorLexico lex, String urlRegras, String urlTabela) throws IOException {
+	public AnalisadorSLR(AnalisadorLexico lex) throws IOException {
 		this.lex = lex;
-		this.urlRegras = urlRegras;
-		LeitorTabela leitor = new LeitorTabela(urlTabela);
+		this.urlRegras = InfoTabela.urlRegrasNum;
+		LeitorTabela leitor = new LeitorTabela(InfoTabela.urlTabela);
 		action = leitor.tabelaAction;
 		go = leitor.tabelaGoto;
 	}
@@ -32,7 +33,7 @@ public class AnalisadorSLR {
 		pilha.push(0); // estado inicial
 		while (true) {
 			int topo = pilha.pop(); // pega o topo da pilha
-			pilha.push(topo); // mantem o estado inicial na pilha
+			pilha.push(topo); // mantem o estado da pilha
 			
 			int tipoToken = token.tipo; // pega o tipo que será o index da
 										// tabela.. na tabela
@@ -54,7 +55,7 @@ public class AnalisadorSLR {
 				pilha.push(acao.numero);
 				Token ant = token;
 				token = lex.analisa();
-				while(ant.tipo==Tipo.BR && token.tipo==Tipo.BR) token=lex.analisa(); //retira as quebras de linhas a mais
+				while(ant.tipo==Tipo.BR && token.tipo==Tipo.BR) token=lex.analisa(); //ignora as quebras de linhas a mais
 				System.out.println("Shift: "+acao.numero);
 			}else if(acao.operacao == 'R'){
 				for (int i = 0; i < qtdRegra[acao.numero][1]; i++) { //qtdRegra[acao.numero][1] eh a quantidade de tokens que a regra do reduce possui

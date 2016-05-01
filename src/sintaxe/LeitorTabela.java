@@ -5,13 +5,16 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import recursos.InfoTabela;
+
 public class LeitorTabela {
-	private final int altTab = 180;
-	private final int lagTabAc = 57;
-	private final int lagTabGo = 27;
+	private final int altTab = InfoTabela.ALTURA;
+	private final int lagTabAc = InfoTabela.LAG_ACTION;
+	private final int lagTabGo = InfoTabela.LAG_GOTO;
 	public Acao[][] tabelaAction = new Acao[altTab][lagTabAc];
 	public Goto[][] tabelaGoto = new Goto[altTab][lagTabGo];
 	private BufferedReader br;
+	@SuppressWarnings("unused")
 	private String url;
 	private String linha;
 	private int contLinha=0;
