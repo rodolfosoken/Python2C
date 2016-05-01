@@ -96,7 +96,7 @@ For -> fort Id in FuncRange  doispontos Corpo | fort Id in colabr Var_star colfe
 
 Corpo -> brident Comandos | Comando br |  Comando pontovirgula;
 
-Func -> input parabr ExprComp_star parfec  | print parabr Expr_star parfec | FuncRange | Func virgula Func | colabr Func colfec  | parabr Func parfec | Id igual Func ;
+Func -> input parabr ExprComp_star parfec  | print parabr Expr_star parfec | Id parabr Expr_star parafec | Id parabr parafec |FuncRange | Func virgula Func | colabr Func colfec  | parabr Func parfec | Id igual Func ;
 FuncRange -> range parabr IntId parfec | range parabr IntId virgula IntId parfec | range parabr IntId virgula  IntId virgula  IntId parfec;
 
 Def -> def Id parabr Var_star parfec doispontos Corpo | def Id parabr parfec doispontos  Corpo;

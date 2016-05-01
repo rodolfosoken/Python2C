@@ -1,4 +1,26 @@
+x = 5
+print(1 < x < 10)
+print(10 < x < 20)
+print(x < 10 < x*10 < 100)
+print(10 > x <= 9)
+print(5 == x > 4)
+x = [0 , 1]
+i=0
+i, x[i] = 1, 2 		# i is updated, then x[i] is updated
+print(x)
+a = 42
+b = list(a + i for i in range (10))
+print(b)
+i=10
 def f():
 	i=20
 	print(i)
 	i = i + 1
+i = 42
+f()
+print(i)
+for i in range(5):
+	 print(i)
+	 i = 4.5 		#this will not affect the for-loop
+	 				#because i will be overwritten with the next
+	 				#index in the range 

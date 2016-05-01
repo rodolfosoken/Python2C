@@ -66,7 +66,7 @@ ebin	62	;
 
 
 begin S -> Comandos;
-Comandos -> Comando br | Comando pontovirgula Comandos | Comando br Comandos;
+Comandos -> Comando br | Comando pontovirgula Comandos | Comando br Comandos | Comando brident Comandos;
 Comando -> Expr_star | IncExpr | IF | While | For | Func | Def;
 
 Expr_star -> Var_star | Var_star igual Expr_star | Var_star Op Expr_star ;

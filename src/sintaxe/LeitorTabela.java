@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class LeitorTabela {
-	private final int altTab = 175;
+	private final int altTab = 180;
 	private final int lagTabAc = 57;
 	private final int lagTabGo = 27;
 	public Acao[][] tabelaAction = new Acao[altTab][lagTabAc];
