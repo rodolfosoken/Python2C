@@ -89,7 +89,7 @@ OpIg -> maisigual | menosigual | vezesigual | arrigual | divideigual | percigual
 
 IF -> ift ExprComp doispontos  Corpo Elif Else;
 Elif -> elift ExprComp doispontos Corpo Elif | ;
-Else -> elset ExprComp doispontos Corpo | ;
+Else -> elset ExprComp doispontos Corpo | elset doispontos Corpo | ;
 
 While ->  whilet ExprComp doispontos Corpo Else ;
 For -> fort Id in FuncRange  doispontos Corpo | fort Id in colabr Var_star colfec doispontos Corpo | fort Id in parabr Var_star parfec  doispontos Corpo ;

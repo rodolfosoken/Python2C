@@ -18,9 +18,22 @@ def f():
 	i = i + 1
 i = 42
 f()
+
 print(i)
 for i in range(5):
 	 print(i)
 	 i = 4.5 		#this will not affect the for-loop
 	 				#because i will be overwritten with the next
 	 				#index in the range 
+
+while count <= 5:
+	print(count)
+	count += 1
+
+while count <= 5:
+	print(count)
+	count += 1
+else :
+	print(count)
+
+

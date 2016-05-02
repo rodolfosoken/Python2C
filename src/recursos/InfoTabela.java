@@ -6,7 +6,7 @@ public class InfoTabela {
 															// das regras gramaticais para
 															// contagem de elementos de cada uma 
 	
-	public final static int ALTURA = 170,
+	public final static int ALTURA = 172,
 			LAG_ACTION = 57,
 			LAG_GOTO = 27;
 	

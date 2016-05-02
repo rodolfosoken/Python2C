@@ -64,7 +64,7 @@ public class AnalisadorSLR {
 				topo = pilha.pop();
 				pilha.push(topo);
 				pilha.push(go[topo][qtdRegra[acao.numero][0]].estado); //qtdRegra[acao.numero][0] eh o numero da regra no indice da tabela goto
-				System.out.println("Reduce com a regra "+acao.numero+" empilha estado: "+ go[topo][qtdRegra[acao.numero][0]].estado);
+				System.out.println("Reduce com a regra "+acao.numero);
 			}else if(acao.operacao == 'a') {System.out.println("Analise terminou");break;}
 			else if(acao.operacao=='{'){
 				System.out.println("Conflito em action["+topo+"]["+tipoToken+"]: Ao ler linha "+lex.contLinha);

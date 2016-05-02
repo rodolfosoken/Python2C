@@ -90,7 +90,8 @@
 /* 88) */  Elif -> elift ExprComp doispontos Corpo Elif ;
 /* 89) */  Elif -> ;
 /* 90) */  Else -> elset ExprComp doispontos Corpo ;
-/* 91) */  Else -> ;
-/* 92) */  FuncRange -> range parabr IntId parfec ;
-/* 93) */  FuncRange -> range parabr IntId virgula IntId parfec ;
-/* 94) */  FuncRange -> range parabr IntId virgula IntId virgula IntId parfec ;
+/* 91) */  Else -> elset doispontos Corpo ;
+/* 92) */  Else -> ;
+/* 93) */  FuncRange -> range parabr IntId parfec ;
+/* 94) */  FuncRange -> range parabr IntId virgula IntId parfec ;
+/* 95) */  FuncRange -> range parabr IntId virgula IntId virgula IntId parfec ;
